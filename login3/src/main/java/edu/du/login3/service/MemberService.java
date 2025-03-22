@@ -11,14 +11,16 @@ import java.util.Optional;
 @Service
 @Transactional
 public class MemberService {
+
     private final UserRepository userRepository;
 
     public MemberService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    // 기존 메소드들
     public List<Member> getAllMembers() {
-        return userRepository.findAll();
+        return userRepository.findAll();  // userRepository에서 모든 회원 정보를 가져옵니다.
     }
 
     public Optional<Member> getMemberById(Long id) {

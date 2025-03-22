@@ -18,20 +18,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="author" class="form-label">작성자</label>
-                            <input type="text" class="form-control" id="author" value="${member.author}" readonly>
+                            <input type="text" class="form-control" id="author" name="author" value="${member.author}" required>
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">내용</label>
                             <textarea class="form-control" id="content" name="content" rows="10" required>${member.content}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <c:if test="${not empty errors}">
-                                <div class="alert alert-danger">
-                                    <c:forEach items="${errors}" var="error">
-                                        <p>${error}</p>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="/users" class="btn btn-secondary me-2">취소</a>

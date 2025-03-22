@@ -1,14 +1,24 @@
 package edu.du.login3.model;
 
-import lombok.Data;
-
-//@Data
 public class Member {
     private Long id;
     private String name;
     private String password;
     private String email;
 
+    // 기본 생성자
+    public Member() {
+    }
+
+    // 필드 값을 받는 생성자
+    public Member(Long id, String name, String password, String email) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    // Getter & Setter 메소드들
     public Long getId() {
         return id;
     }
@@ -40,14 +50,4 @@ public class Member {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Member(Long id, String name, String password, String email) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-
-    }
-
-
 }
