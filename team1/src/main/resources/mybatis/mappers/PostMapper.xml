@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="edu.du.team1.mapper.PostMapper">
+
+    <select id="findAllPosts" resultType="edu.du.team1.entity.Post">
+        SELECT * FROM post ORDER BY created_at DESC;
+    </select>
+
+    <select id="findById" resultType="edu.du.team1.entity.Post">
+        SELECT * FROM post WHERE id = #{id};
+    </select>
+
+    <insert id="insertPost">
+        INSERT INTO post (title, content, member_id)
+        VALUES (#{title}, #{content}, #{memberId});
+    </insert>
+
+    <update id="updatePost">
+        UPDATE post SET title = #{title}, content = #{content}
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM post WHERE id = #{id};
+    </delete>
+
+</mapper>

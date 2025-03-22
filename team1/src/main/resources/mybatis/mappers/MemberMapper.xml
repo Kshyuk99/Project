@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="edu.du.team1.mapper.MemberMapper">
+
+    <insert id="insertMember">
+        INSERT INTO member (name, email, password)
+        VALUES (#{name}, #{email}, #{password});
+    </insert>
+
+    <select id="findByEmail" resultType="edu.du.team1.entity.Member">
+        SELECT * FROM member WHERE email = #{email};
+    </select>
+
+    <select id="findById" resultType="edu.du.team1.entity.Member">
+        SELECT * FROM member WHERE id = #{id};
+    </select>
+
+    <update id="updateMember">
+        UPDATE member SET name = #{name}, password = #{password}, email = #{email}
+        WHERE id = #{id};
+    </update>
+
+</mapper>
