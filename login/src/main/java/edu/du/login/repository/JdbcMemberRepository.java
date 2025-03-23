@@ -1,6 +1,5 @@
 package edu.du.login.repository;
 
-import edu.du.login.repository.MemberRepository;
 import edu.du.login.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,7 +33,6 @@ public class JdbcMemberRepository implements MemberRepository {
         }
     };
 
-
     @Override
     public Member findById(Long id) {
         String sql = "SELECT * FROM member WHERE id = ?";
@@ -64,13 +62,17 @@ public class JdbcMemberRepository implements MemberRepository {
         if (member.getId() == null) {
             sql = "INSERT INTO member (name, password, email) VALUES (?, ?, ?)";
             jdbcTemplate.update(sql, member.getName(), member.getPassword(), member.getEmail());
-            // 새로 생성된 id를 반환하려면 추가적인 작업 필요 (auto-increment id 확인)
             return findByEmail(member.getEmail()).get();
         } else {
             sql = "UPDATE member SET name = ?, password = ?, email = ? WHERE id = ?";
             jdbcTemplate.update(sql, member.getName(), member.getPassword(), member.getEmail(), member.getId());
             return member;
         }
+    }
 
+    @Override
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM member WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 }
