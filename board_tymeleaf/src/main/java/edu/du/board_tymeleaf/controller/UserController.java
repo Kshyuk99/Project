@@ -38,15 +38,23 @@ public class UserController {
 
     @PostMapping("/add")
     public String addMember(@ModelAttribute Member member) {
+        member.setId(null); // id를 null로 설정하여 새로운 사용자 등록
         memberService.saveMember(member);
         return "redirect:/users";
     }
 
     @GetMapping("/edit/{id}")
     public String editPostForm(@PathVariable Long id, Model model) {
-        Member member = memberService.getMemberById(id).orElse(null);
-        model.addAttribute("member", member);
-        return "users/edit";
+        if (id == 0) {
+            // 새로운 사용자 등록 폼을 보여주는 로직
+            model.addAttribute("member", new Member()); // 빈 Member 객체 전달
+            return "users/edit";
+        } else {
+            // 기존 사용자 수정 폼을 보여주는 로직
+            Member member = memberService.getMemberById(id).orElse(null);
+            model.addAttribute("member", member);
+            return "users/edit";
+        }
     }
 
     @PostMapping("/update")
