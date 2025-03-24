@@ -19,7 +19,7 @@ public class MemberService {
     }
 
     public List<Member> getAllMembers() {
-        return userRepository.findAll();  // userRepository에서 모든 회원 정보를 가져옵니다.
+        return userRepository.findAll();
     }
 
     public Optional<Member> getMemberById(Long id) {

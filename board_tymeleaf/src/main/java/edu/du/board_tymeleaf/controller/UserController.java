@@ -21,7 +21,6 @@ public class UserController {
         return "users/list";
     }
 
-
     @GetMapping("/{id}")
     public String viewMember(@PathVariable Long id, Model model) {
         Member member = memberService.getMemberById(id).orElse(null);
@@ -38,7 +37,7 @@ public class UserController {
 
     @PostMapping("/add")
     public String addMember(@ModelAttribute Member member) {
-        member.setId(null); // id를 null로 설정하여 새로운 사용자 등록
+        member.setId(null);
         memberService.saveMember(member);
         return "redirect:/users";
     }
@@ -46,11 +45,11 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String editPostForm(@PathVariable Long id, Model model) {
         if (id == 0) {
-            // 새로운 사용자 등록 폼을 보여주는 로직
-            model.addAttribute("member", new Member()); // 빈 Member 객체 전달
+
+            model.addAttribute("member", new Member());
             return "users/edit";
         } else {
-            // 기존 사용자 수정 폼을 보여주는 로직
+
             Member member = memberService.getMemberById(id).orElse(null);
             model.addAttribute("member", member);
             return "users/edit";
