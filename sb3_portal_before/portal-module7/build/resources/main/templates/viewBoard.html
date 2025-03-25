@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 상세보기</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .card-header {
+            background-color: rgba(6, 10, 23, 0.49);
+            color: white;
+        }
+        .card-body {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .comment {
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+        .comment p {
+            font-size: 14px;
+        }
+        .btn-primary, .btn-danger {
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover, .btn-danger:hover {
+            transform: scale(1.05);
+        }
+        .form-control {
+            border-radius: 6px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 40%;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- 게시물 정보 -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 th:text="${board.title}">게시물 제목</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>작성자:</strong> <span th:text="${board.author}">작성자</span></p>
+            <p><strong>내용:</strong> <span th:text="${board.content}">게시물 내용</span></p>
+            <p><strong>조회수:</strong> <span th:text="${board.views}">0</span></p>
+            <p><strong>좋아요:</strong> <span th:text="${board.likes}">0</span></p>
+            <p><strong>작성일:</strong> <span th:text="${#temporals.format(board.created, 'yyyy-MM-dd HH:mm')}">작성일</span></p>
+            <p><strong>수정일:</strong> <span th:text="${#temporals.format(board.updated, 'yyyy-MM-dd HH:mm')}">수정일</span></p>
+            <form th:action="@{/board/{id}/like(id=${board.id})}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-primary btn-sm like-btn">좋아요</button>
+            </form>
+            <a th:href="@{/board/{id}/edit(id=${board.id})}" class="btn btn-success btn-sm go-list-btn">수정</a>
+            <form th:action="@{/board/{id}/delete(id=${board.id})}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm post-del-btn">삭제</button>
+            </form>
+            <a th:href="@{/list}" class="btn btn-secondary btn-sm go-list-btn">목록</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 댓글 목록 -->
+    <h3>댓글</h3>
+    <div th:each="comment : ${comments}" class="card mb-3 comment">
+        <div class="card-body">
+            <p><strong th:text="${comment.author}">작성자</strong> - <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm')}">댓글 작성일</span></p>
+            <p th:text="${comment.comment}">댓글 내용</p>
+            <form th:action="@{/board/{id}/comment/delete(id=${board.id})}" name="delComment" method="post">
+                <input type="hidden" name="id" th:value="${comment.id}"/>
+                <button type="submit" class="btn btn-danger btn-sm delete-btn">삭제</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+    <!-- 댓글 입력 폼 -->
+    <h3>댓글 작성</h3>
+    <form th:action="@{/board/{id}/comment/write(id=${board.id})}" method="post">
+        <div class="form-group">
+            <label for="comment">댓글 내용</label>
+            <textarea id="comment" name="comment" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="author">작성자</label>
+            <input type="text" id="author" name="author" class="form-control" required/>
+        </div>
+        <input type="hidden" name="postId" th:value="${board.id}"/>
+        <button type="submit" class="btn btn-primary">댓글 작성</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

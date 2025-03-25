@@ -1,0 +1,33 @@
+create database sb0313;
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
+INSERT INTO users (id, username, password, role)
+VALUES (1, 'root', '1234', 'ADMIN');
+
+INSERT INTO users (id, username, password, role)
+VALUES (2, 'hong', '1234', 'ROLE_USER');
+
+
+
+
+CREATE TABLE board (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(100) NOT NULL,
+    writer VARCHAR(50) NOT NULL,
+    created_at DATETIME NOT NULL
+);
+
+
+INSERT INTO board (id, title, content, writer, created_at)
+VALUES
+(1, '첫 번째 게시글', '이것은 첫 번째 게시글의 내용입니다.', 'user1', '2025-03-21 05:43:45'),
+(2, '두 번째 게시글', '여기는 두 번째 게시글입니다.', 'user2', '2025-03-21 05:43:45'),
+(3, '세 번째 게시글', '세 번째 글의 내용을 적습니다.', 'user3', '2025-03-21 05:43:45');

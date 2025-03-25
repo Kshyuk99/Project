@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/header :: head}"></head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container mt-5">
+  <h2 class="mb-4">게시판</h2>
+
+  <div class="text-end mb-3" th:if="${session.loggedInUser != null}">
+    <a th:href="@{/posts/write}" class="btn btn-primary">글쓰기</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead class="table-light">
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 일반 사용자가 '탈퇴한 사용자' 글일 때 -->
+        <tr th:each="post : ${posts}">
+          <td th:text="${post.id}">1</td>
+
+          <td>
+            <!-- 관리자일 경우: 제목 링크 표시 -->
+            <a th:if="${session.loggedInUser != null and session.loggedInUser.role == 'ADMIN'}"
+               th:href="@{/posts/{id}(id=${post.id})}" class="text-decoration-none"
+               th:text="${post.title}">제목</a>
+
+            <!-- 탈퇴자 글 + 일반 사용자: 권한 없음 -->
+            <span th:if="${post.author == '탈퇴한 사용자' and
+        (session.loggedInUser == null or session.loggedInUser.role != 'ADMIN')}"
+                  class="text-muted">권한 없음</span>
+
+            <!-- 정상 글 + 일반 사용자: 제목 링크 표시 -->
+            <a th:if="${post.author != '탈퇴한 사용자' and
+       (session.loggedInUser == null or session.loggedInUser.role != 'ADMIN')}"
+               th:href="@{/posts/{id}(id=${post.id})}" class="text-decoration-none"
+               th:text="${post.title}">제목</a>
+          </td>
+
+          <td th:text="${post.author}">작성자</td>
+
+          <!-- ✅ 작성일도 숨김 처리 -->
+          <td>
+    <span th:if="${post.author == '탈퇴한 사용자' and
+        (session.loggedInUser == null or session.loggedInUser.role != 'ADMIN')}"
+          class="text-muted">-</span>
+
+            <span th:if="${post.author != '탈퇴한 사용자' or
+        (session.loggedInUser != null and session.loggedInUser.role == 'ADMIN')}"
+                  th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="mt-4 d-flex justify-content-center">
+  <nav>
+    <ul class="pagination">
+      <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/posts(page=${currentPage - 1})}">이전</a>
+      </li>
+
+      <li class="page-item"
+          th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+          th:classappend="${pageNum == currentPage} ? 'active'">
+        <a class="page-link" th:href="@{/posts(page=${pageNum})}" th:text="${pageNum + 1}">1</a>
+      </li>
+
+      <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+        <a class="page-link" th:href="@{/posts(page=${currentPage + 1})}">다음</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

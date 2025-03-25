@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/header :: head}"></head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<style>
+  .card-body {
+    padding: 2rem;
+  }
+
+  .post-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 0 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .post-info {
+    color: #6c757d;
+    font-size: 14px;
+    padding: 15px 0;
+    margin: 0;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .post-content {
+    padding: 30px 0 0 0;
+    margin: 0;
+    min-height: 300px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .post-info span + span::before {
+    content: "|";
+    margin: 0 10px;
+    color: #dee2e6;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="post-title" th:text="${post.title}">제목</div>
+      <div class="post-info">
+        <span th:text="'작성자: ' + ${post.author}">작성자</span>
+        <span th:text="'작성일: ' + ${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일</span>
+      </div>
+      <div class="post-content" th:text="${post.content}">본문 내용</div>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-between">
+        <a th:href="@{/posts}" class="btn btn-secondary">목록으로</a>
+
+        <div th:if="${session.loggedInUser != null and session.loggedInUser.name == post.author}">
+          <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-primary">수정</a>
+          <form th:action="@{/posts/delete}" method="post" style="display: inline;">
+            <input type="hidden" name="id" th:value="${post.id}">
+            <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+          </form>
+        </div>
+
+        <div th:unless="${session.loggedInUser != null and session.loggedInUser.name == post.author}">
+          <!-- 다른 사용자: 버튼 없음 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

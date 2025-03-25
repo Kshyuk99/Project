@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module4/sb3-portal.portal-module4.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module4/sb3-portal.portal-module4.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-common/sb3-portal.portal-common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-common/sb3-portal.portal-common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module1/sb3-portal.portal-module1.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module1/sb3-portal.portal-module1.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module3/sb3-portal.portal-module3.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module3/sb3-portal.portal-module3.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module5/sb3-portal.portal-module5.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module5/sb3-portal.portal-module5.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module6/sb3-portal.portal-module6.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module6/sb3-portal.portal-module6.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module7/sb3-portal.portal-module7.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module7/sb3-portal.portal-module7.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module8/sb3-portal.portal-module8.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module8/sb3-portal.portal-module8.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-module9/sb3-portal.portal-module9.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-module9/sb3-portal.portal-module9.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/portal-web/sb3-portal.portal-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/portal-web/sb3-portal.portal-web.main.iml" />
     </modules>
   </component>
 </project>
